@@ -39,4 +39,23 @@ const buildBlockedPath = (arrayOfWalls, walkStartTime) => {
   return blockedPath;
 };
 
-module.exports = { compareElements, sortWallsByTime, buildBlockedPath };
+// This is the main function for problem
+const calculateSeparationTime = (input) => {
+  const result = [];
+  const numberOfWalls = input[0][1];
+  const walls = [];
+  const startingTime = input.pop();
+  for (let i = 1; i <= numberOfWalls; i += 1) {
+    walls.push(input[i]);
+  }
+  const sortedWalls = sortWallsByTime(walls);
+  startingTime.forEach((startingTimeOfCouple) => {
+    result.push(buildBlockedPath(sortedWalls, startingTimeOfCouple).reduce((sum, currentValue) => sum + currentValue));
+  });
+  console.log(result);
+  return result;
+};
+
+module.exports = {
+  compareElements, sortWallsByTime, buildBlockedPath, calculateSeparationTime,
+};
